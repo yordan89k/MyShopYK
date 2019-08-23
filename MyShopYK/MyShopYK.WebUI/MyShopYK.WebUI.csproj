@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -275,6 +276,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\ProductManager\Index.cshtml" />
+    <Content Include="Views\ProductManager\Create.cshtml" />
+    <Content Include="Views\ProductManager\Edit.cshtml" />
+    <Content Include="Views\ProductManager\ConfirmDelete.cshtml" />
+    <Content Include="Views\ProductManager\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -287,6 +293,24 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyShopYK.Core\MyShopYK.Core.csproj">
+      <Project>{0c948e15-ad23-471c-b72e-2ed50c641f1f}</Project>
+      <Name>MyShopYK.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyShopYK.DataAccess.InMemory\MyShopYK.DataAccess.InMemory.csproj">
+      <Project>{7fc83098-0455-4d33-aae8-fff0f3ed688d}</Project>
+      <Name>MyShopYK.DataAccess.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyShopYK.DataAccess.SQL\MyShopYK.DataAccess.SQL.csproj">
+      <Project>{97d3be6d-99a1-4f28-9d3d-64279f14b90f}</Project>
+      <Name>MyShopYK.DataAccess.SQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyShopYK.Services\MyShopYK.Services.csproj">
+      <Project>{6835860f-bfc6-4f48-9266-d19e76af2caa}</Project>
+      <Name>MyShopYK.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
