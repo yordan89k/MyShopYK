@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyShopYK.Core.Models;
+using MyShopYK.Core.ViewModels;
 using MyShopYK.DataAccess.InMemory;
 
 namespace MyShopYK.WebUI.Controllers
@@ -11,10 +12,12 @@ namespace MyShopYK.WebUI.Controllers
     public class ProductManagerController : Controller
     {
         ProductRepository context;
+        ProductCategoryRepository productCategories;
 
         public ProductManagerController()
         {
             context = new ProductRepository();
+            productCategories = new ProductCategoryRepository();
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -25,8 +28,11 @@ namespace MyShopYK.WebUI.Controllers
 
         public ActionResult Create()
         {
-            var product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.Product = new Product();
+            viewModel.ProductCategories = productCategories.Collection();
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -54,7 +60,10 @@ namespace MyShopYK.WebUI.Controllers
             }
             else
             {
-                return View(product);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product = product;
+                viewModel.ProductCategories = productCategories.Collection();
+                return View(viewModel);
             }
         }
 
@@ -114,7 +123,7 @@ namespace MyShopYK.WebUI.Controllers
             {
                 context.Delete(Id);
                 context.Commit();
-                    return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
         }
 
