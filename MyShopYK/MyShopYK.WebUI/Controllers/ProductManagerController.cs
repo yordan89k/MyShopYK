@@ -4,9 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyShopYK.Core.Models;
-using MyShopYK.Core.ViewModels;
 using MyShopYK.DataAccess.InMemory;
+using MyShopYK.Core.ViewModels;
 using MyShopYK.Core.Contracts;
+using System.IO;
 
 namespace MyShopYK.WebUI.Controllers
 {
@@ -29,15 +30,15 @@ namespace MyShopYK.WebUI.Controllers
 
         public ActionResult Create()
         {
-            var viewModel = new ProductManagerViewModel();
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+
             viewModel.Product = new Product();
             viewModel.ProductCategories = productCategories.Collection();
-
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
@@ -45,11 +46,19 @@ namespace MyShopYK.WebUI.Controllers
             }
             else
             {
+
+                if (file != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + product.Image);
+                }
+
                 context.Insert(product);
                 context.Commit();
 
                 return RedirectToAction("Index");
             }
+
         }
 
         public ActionResult Edit(string Id)
@@ -61,18 +70,20 @@ namespace MyShopYK.WebUI.Controllers
             }
             else
             {
-                var viewModel = new ProductManagerViewModel();
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
                 viewModel.Product = product;
                 viewModel.ProductCategories = productCategories.Collection();
+
                 return View(viewModel);
             }
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product, string Id)
+        public ActionResult Edit(Product product, string Id, HttpPostedFileBase file)
         {
             Product productToEdit = context.Find(Id);
-            if (product == null)
+
+            if (productToEdit == null)
             {
                 return HttpNotFound();
             }
@@ -82,18 +93,21 @@ namespace MyShopYK.WebUI.Controllers
                 {
                     return View(product);
                 }
-                else
+
+                if (file != null)
                 {
-                    productToEdit.Category = product.Category;
-                    productToEdit.Description = product.Description;
-                    productToEdit.Image = product.Image;
-                    productToEdit.Name = product.Name;
-                    productToEdit.Price = product.Price;
-
-                    context.Commit();
-
-                    return RedirectToAction("Index");
+                    productToEdit.Image = product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + productToEdit.Image);
                 }
+
+                productToEdit.Category = product.Category;
+                productToEdit.Description = product.Description;
+                productToEdit.Name = product.Name;
+                productToEdit.Price = product.Price;
+
+                context.Commit();
+
+                return RedirectToAction("Index");
             }
         }
 
@@ -110,6 +124,7 @@ namespace MyShopYK.WebUI.Controllers
                 return View(productToDelete);
             }
         }
+
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(string Id)
@@ -127,6 +142,5 @@ namespace MyShopYK.WebUI.Controllers
                 return RedirectToAction("Index");
             }
         }
-
     }
 }
