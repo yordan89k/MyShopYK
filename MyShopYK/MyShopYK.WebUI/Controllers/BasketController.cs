@@ -22,7 +22,7 @@ namespace MyShopYK.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult AddtoBasket(string Id)
+        public ActionResult AddToBasket(string Id)
         {
             basketService.AddToBasket(this.HttpContext, Id);
 
