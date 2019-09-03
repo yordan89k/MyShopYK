@@ -15,7 +15,7 @@ namespace MyShopYK.WebUI.Tests.Controllers
     [TestClass]
     public class UnitTest1
     {
-        /*
+        
          
         [TestMethod]
         public void IndexPageDoesReturnProducts()
@@ -31,6 +31,6 @@ namespace MyShopYK.WebUI.Tests.Controllers
 
             Assert.AreEqual(1, viewModel.Products.Count());
         }
-          */
+          
     }
 }
