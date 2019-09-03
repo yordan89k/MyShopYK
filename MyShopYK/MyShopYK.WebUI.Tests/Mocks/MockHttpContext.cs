@@ -24,17 +24,17 @@ namespace MyShopYK.WebUI.Tests.Mocks
 
         public override IPrincipal User
         {
-            get{
+            get
+            {
                 return this.FakeUser;
             }
-
-            set{
+            set
+            {
                 this.FakeUser = value;
             }
+
         }
 
-
-        /* OLD
         public override HttpRequestBase Request
         {
             get
@@ -42,7 +42,6 @@ namespace MyShopYK.WebUI.Tests.Mocks
                 return request;
             }
         }
-        */
 
         public override HttpResponseBase Response
         {
@@ -53,10 +52,10 @@ namespace MyShopYK.WebUI.Tests.Mocks
         }
     }
 
-
     public class MockResponse : HttpResponseBase
     {
         private readonly HttpCookieCollection cookies;
+
         public MockResponse(HttpCookieCollection cookies)
         {
             this.cookies = cookies;
@@ -71,9 +70,10 @@ namespace MyShopYK.WebUI.Tests.Mocks
         }
     }
 
-    public class MockRequest : HttpResponseBase
+    public class MockRequest : HttpRequestBase
     {
         private readonly HttpCookieCollection cookies;
+
         public MockRequest(HttpCookieCollection cookies)
         {
             this.cookies = cookies;

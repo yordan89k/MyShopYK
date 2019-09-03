@@ -73,7 +73,7 @@ namespace MyShopYK.WebUI.Tests.Controllers
 
 
             var httpContext = new MockHttpContext();
-            httpContext.Request.Cookies.Add(new System.Web.HttpCookie("eCommerceBasket") { Value = basket.Id });
+            httpContext.Request.Cookies.Add(new System.Web.HttpCookie("eCommerceBasket") { Value = basket.Id });  // Error here! "The method or operation is not implemented."
             controller.ControllerContext = new System.Web.Mvc.ControllerContext(httpContext, new System.Web.Routing.RouteData(), controller);
 
 
@@ -112,7 +112,7 @@ namespace MyShopYK.WebUI.Tests.Controllers
             var controller = new BasketController(basketService, orderService, customers);
             var httpContext = new MockHttpContext();
             httpContext.User = FakeUser;
-            httpContext.Request.Cookies.Add(new System.Web.HttpCookie("eCommerceBasket")
+            httpContext.Request.Cookies.Add(new System.Web.HttpCookie("eCommerceBasket")  // Error here! "The method or operation is not implemented."
             {
                 Value = basket.Id
             });
