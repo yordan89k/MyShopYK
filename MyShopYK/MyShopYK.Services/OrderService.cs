@@ -12,9 +12,9 @@ namespace MyShopYK.Services
     public class OrderService : IOrderService
     {
         IRepository<Order> orderContext;
-        public OrderService(IRepository<Order> orderContext)
+        public OrderService(IRepository<Order> OrderContext)
         {
-            this.orderContext = orderContext;
+            this.orderContext = OrderContext;
         }
 
         public void CreateOrder(Order baseOrder, List<BasketItemViewModel> basketItems)
@@ -33,7 +33,6 @@ namespace MyShopYK.Services
 
             orderContext.Insert(baseOrder);
             orderContext.Commit();
-
         }
 
         public List<Order> GetOrderList()
@@ -46,9 +45,9 @@ namespace MyShopYK.Services
             return orderContext.Find(Id);
         }
 
-        public void UpdateOrder(Order updateOrder)
+        public void UpdateOrder(Order updatedOrder)
         {
-            orderContext.Update(updateOrder);
+            orderContext.Update(updatedOrder);
             orderContext.Commit();
         }
     }

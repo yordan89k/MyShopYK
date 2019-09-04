@@ -11,6 +11,7 @@ using System.IO;
 
 namespace MyShopYK.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductManagerController : Controller
     {
         IRepository<Product> context;
